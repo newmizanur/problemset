@@ -16,10 +16,10 @@ class RandStringSource extends Events.EventEmitter {
         this._remainder  = `${this._remainder}${chunk}`;
         let newChunks = this._remainder.split('.'); //checking wrapped string
         this._remainder = newChunks.pop(); //storing tail string
+        newChunks = newChunks.filter(newCH=> newCH); // removing empty string wrapped by dot (..) sequences
 
         //emitting chuck if available to emit
         newChunks.forEach(newChunk => {
-            if(!newChunk) return;
 
             this.emit('data',newChunk)
         });
